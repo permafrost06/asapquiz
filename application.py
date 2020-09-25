@@ -47,7 +47,7 @@ def success():
     if request.method == "POST":
         answers = []
         for i in range(1,len(Question.query.all())+1):
-            answers.append(str(request.form.get(f"q{i}")))
+            answers.append(str(request.form.get("q{}".format(i))))
         db.session.add(Exams(name=session["name"], school=session["school"], classno=session["class"], teacher=session["teacher"], answers=",".join(answers)))
         db.session.commit()
         return render_template("success.html", info=f"{session['name']} from {session['school']} of {session['class']} submitted to {session['teacher']}")
