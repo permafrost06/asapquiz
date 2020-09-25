@@ -32,10 +32,16 @@ def initialize():
     db.create_all()
 
 def import_questions():
+    with open('questions2&3.csv', 'r', encoding='utf-8') as qfile:
+        for line in qfile:
+            segments = line.split(',,,')
+            db.session.add(Question(text=segments[0], opt_a=segments[1], opt_b=segments[2], opt_c=segments[3], opt_d=segments[4], grade=2))
+        db.session.commit()
     with open('questions4&5.csv', 'r', encoding='utf-8') as qfile:
         for line in qfile:
             segments = line.split(',,,')
             db.session.add(Question(text=segments[0], opt_a=segments[1], opt_b=segments[2], opt_c=segments[3], opt_d=segments[4], grade=4))
         db.session.commit()
 
-    Question.query.filter_by(grade='2')
+initialize()
+import_questions()
