@@ -4,10 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = b'_5#y2LoekcrQ8z\n\xec]/'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///exams.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz.db'
 db = SQLAlchemy(app)
 
-class Exams(db.Model):
+class Exam(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=False, nullable=False)
     school = db.Column(db.String(120), unique=False, nullable=False)
@@ -25,6 +25,7 @@ class Question(db.Model):
     opt_b = db.Column(db.String(100), unique=False, nullable=False)
     opt_c = db.Column(db.String(100), unique=False, nullable=False)
     opt_d = db.Column(db.String(100), unique=False, nullable=False)
+    grade = db.Column(db.String(5), unique=False, nullable=False)
 
     def ___repr__(self):
         return '<question %r>' % self.question
@@ -40,16 +41,22 @@ def questions():
         session["school"] = request.form.get('school')
         session["class"] = request.form.get('cls')
         session["teacher"] = request.form.get('teacher')
-        return render_template("questions.html", questions=Question.query.all())
+        if session["class"] == 'std2' or session["class"] == 'std3':
+            questions_list = Question.query.filter_by(grade='2')
+        else:
+            questions_list = Question.query.filter_by(grade='4')
+        return render_template("questions.html", questions=questions_list)
 
 @app.route("/success", methods=["POST"])
 def success():
     if request.method == "POST":
         answers = []
-        for i in range(1,len(Question.query.all())+1):
+        if session["class"] == 'std2' or session["class"] == 'std3':
+            questions_list = Question.query.filter_by(grade='2')
+        else:
+            questions_list = Question.query.filter_by(grade='4')
+        for i in range(1,questions_list.count()+1):
             answers.append(str(request.form.get("q{}".format(i))))
-        db.session.add(Exams(name=session["name"], school=session["school"], classno=session["class"], teacher=session["teacher"], answers=",".join(answers)))
+        db.session.add(Exam(name=session["name"], school=session["school"], classno=session["class"], teacher=session["teacher"], answers=",".join(answers)))
         db.session.commit()
         return render_template("success.html")
-
-app.run()
