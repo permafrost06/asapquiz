@@ -50,6 +50,6 @@ def success():
             answers.append(str(request.form.get("q{}".format(i))))
         db.session.add(Exams(name=session["name"], school=session["school"], classno=session["class"], teacher=session["teacher"], answers=",".join(answers)))
         db.session.commit()
-        return render_template("success.html", info=f"{session['name']} from {session['school']} of {session['class']} submitted to {session['teacher']}")
+        return render_template("success.html")
 
 app.run()
