@@ -1,0 +1,66 @@
+<html>
+
+<head>
+	<title>Test Quiz</title>
+	<link rel="stylesheet" type="text/css" href="/static/main.css">
+</head>
+
+<body>
+	<div class="container">
+		<form id="contact" action="/questions" method="post">
+			<h3>Student Information</h3>
+			<fieldset>
+				<label>নাম</label>
+				<input name="student_name" type="text" tabindex="1" required autofocus />
+				<label>স্কুলের নাম</label>
+				<input type="text" name="school" tabindex="1" required />
+				<a>শ্রেণী</a>
+				<label>
+					<input class="radio" name="cls" type="radio" value="std2" tabindex="2" required>STD-2
+				</label>
+				<label>
+					<input class="radio" name="cls" type="radio" value="std3" tabindex="2">STD-3
+				</label>
+				<label>
+					<input class="radio" name="cls" type="radio" value="std4" tabindex="2">STD-4
+				</label>
+				<label>
+					<input class="radio" name="cls" type="radio" value="std5" tabindex="2">STD-5
+				</label>
+			</fieldset>
+			<fieldset>
+				<label>শিক্ষকের নাম</label>
+				<select name="teacher" id="dropdown">
+					<option value="morium">বিবি মরিয়ম</option>
+					<option value="nadia">নাদিয়া আফরিন বিন্তু</option>
+					<option value="jisan">জিসান মাহমুদ</option>
+					<option value="himel">মোঃ এ আর রাফি হিমেল</option>
+					<option value="rechel">রেচেল অদিতি রেমা</option>
+					<option value="miraz">মিরাজুল ইসলাম</option>
+					<option value="mousumi">মৌসুমি আকতার</option>
+					<option value="asima">আসিমা তাসনিম</option>
+					<option value="nashia">নাসিয়া তাসনিম</option>
+					<option value="ananda">রাইসুল আবেদীন আনন্</option>
+					<option value="tania">তানিয়া সুলতানা</option>
+					<option value="hasib">মোহাম্মদ মেসবাহ উদ্দিন হাসিব</option>
+					<option value="pipu">মোঃ আনিসুজ্জামান পিপু</option>
+					<option value="atia">আতিয়া সানজিদা</option>
+					<option value="absar">সাদমান আবসার চৌধুরী</option>
+					<option value="mominul">শেখ মোঃ মমিনুল ইসলাম</option>
+				</select>
+			</fieldset>
+			<fieldset>
+				<button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Start Exam</button>
+			</fieldset>
+			<p class="copyright">Designed by <a target="_blank" href="https://github.com/mishkatmustafid/">Mishkat
+					Mustafid</a> and <a target="_blank" href="https://github.com/permafrost06/">Zahin Azmayeen</a></p>
+		</form>
+	</div>
+	<style>
+		body {
+			height: 100vh;
+		}
+	</style>
+</body>
+
+</html>

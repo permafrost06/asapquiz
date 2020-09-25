@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <title>Test Quiz</title>
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <h3 id="timer">20 Minutes Left</h3>
+        <form id="contact" action="/success" method="post">
+            <div style="margin-top: 100px;"></div>
+            {% for question in questions %}
+            <fieldset>
+                <h4>{{ loop.index }}) {{ question.text }}</h4>
+                <label><input class="radio" name="q{{ loop.index }}" value=a type="radio">ক) {{ question.opt_a }}</label>
+                <label><input class="radio" name="q{{ loop.index }}" value=b type="radio">খ) {{ question.opt_b }}</label>
+                <label><input class="radio" name="q{{ loop.index }}" value=c type="radio">গ) {{ question.opt_c }}</label>
+                <label><input class="radio" name="q{{ loop.index }}" value=d type="radio">ঘ) {{ question.opt_d }}</label>
+            </fieldset>
+            {% endfor %}
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+        </form>
+    </div>
+    <style>
+        .container {
+            max-width: 800px;
+        }
+
+        #contact h4 {
+            font-size: 18px;
+            font-weight: 500;
+        }
+    </style>
+    <script>
+        var count = 20 * 60;
+        var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
+
+        function timer() {
+            count = count - 1;
+            if (count == -1) {
+                clearInterval(counter);
+                return;
+            }
+
+            var seconds = count % 60;
+            var minutes = Math.floor(count / 60);
+            var hours = Math.floor(minutes / 60);
+            minutes %= 60;
+            hours %= 60;
+            //hours + " hours " +
+            var timerDisplay = document.getElementById("timer");
+            (seconds != 0) ? timerDisplay.innerText = minutes + " minutes and " + seconds.toString().padStart(2, 0) + " seconds left!" : timerDisplay.innerText = minutes + " minutes left"; // watch for spelling
+        }
+    </script>
+</body>
+
+</html>
